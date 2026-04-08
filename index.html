@@ -4,67 +4,221 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piece ID Index</title>
-    
-    <link type="text/css" rel="stylesheet" href="resources/sheet.css">
-
     <style type="text/css">
-        .ritz .waffle a { color: inherit; }
-        .ritz .waffle .s2 { border-bottom:1px SOLID #000000; border-right:1px SOLID #000000; background-color:#ffff00; text-align:left; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s5 { background-color:#ffffff; text-align:left; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s9 { border-bottom:1px SOLID #000000; background-color:#efefef; text-align:left; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s0 { border-bottom:1px SOLID #000000; border-right:1px SOLID #000000; background-color:#76a5af; text-align:left; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s7 { border-bottom:1px SOLID #000000; background-color:#ffffff; text-align:left; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s3 { background-color:#efefef; text-align:left; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s1 { border-bottom:1px SOLID #000000; border-right:1px SOLID #000000; background-color:#cc0000; text-align:left; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s6 { border-right:1px SOLID #000000; background-color:#ffffff; text-align:right; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s8 { border-bottom:1px SOLID #000000; border-right:1px SOLID #000000; background-color:#ffffff; text-align:right; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s4 { border-right:1px SOLID #000000; background-color:#efefef; text-align:right; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        .ritz .waffle .s10 { border-bottom:1px SOLID #000000; border-right:1px SOLID #000000; background-color:#efefef; text-align:right; color:#000000; font-family:Arial; font-size:10pt; vertical-align:bottom; white-space:nowrap; direction:ltr; padding:2px 3px 2px 3px; }
-        
-        body { padding: 20px; font-family: sans-serif; }
-        .grid-container { display: flex; justify-content: center; }
+        :root {
+            --primary-bg: #76a5af;
+            --accent-red: #cc0000;
+            --category-yellow: #ffff00;
+            --row-even: #f9f9f9;
+            --row-odd: #ffffff;
+            --border-color: #dddddd;
+        }
 
-        /* Hide any residual header styles from the external stylesheet */
-        .row-headers-background, .column-headers-background, .row-header { display: none; }
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 40px 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .table-container {
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        /* Header Styles */
+        .main-header td {
+            background-color: var(--primary-bg);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 15px;
+            border: none;
+        }
+
+        .main-header td:last-child {
+            background-color: var(--accent-red);
+            text-align: center;
+            width: 80px;
+        }
+
+        /* Section/Category Headers */
+        .category-header {
+            background-color: var(--category-yellow);
+            color: #333;
+            font-weight: 800;
+            text-align: center;
+            padding: 8px;
+            border-top: 2px solid #00000010;
+            border-bottom: 1px solid #00000010;
+            letter-spacing: 2px;
+        }
+
+        /* Standard Rows */
+        tr:nth-child(even) { background-color: var(--row-even); }
+        tr:nth-child(odd) { background-color: var(--row-odd); }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+            color: #444;
+        }
+
+        .id-cell {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #2c3e50;
+            border-left: 1px solid var(--border-color);
+        }
+
     </style>
 </head>
 <body>
 
-<div class="ritz grid-container" dir="ltr">
-    <table class="waffle" cellspacing="0" cellpadding="0">
+<div class="table-container">
+    <table>
         <tbody>
-            <tr style="height: 20px"><td class="s0" style="width:168px;" dir="ltr">PIECE NAME</td><td class="s1" style="width:29px;" dir="ltr">ID</td></tr>
-            <tr style="height: 20px"><td class="s2" dir="ltr" colspan="2">ESSENTIAL</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Straight</td><td class="s4" dir="ltr">3</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Straight Short</td><td class="s6" dir="ltr">42</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Start</td><td class="s4" dir="ltr">1</td></tr>
-            <tr style="height: 20px"><td class="s7" dir="ltr">Finish</td><td class="s8" dir="ltr">2</td></tr>
-            <tr style="height: 20px"><td class="s2" dir="ltr" colspan="2">TURNS</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Flat Small</td><td class="s6" dir="ltr">4</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Flat Medium</td><td class="s4" dir="ltr">6</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Flat Large</td><td class="s6" dir="ltr">8</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Left Slope Medium</td><td class="s4" dir="ltr">59</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Right Slope Medium</td><td class="s6" dir="ltr">58</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Left Slope Large</td><td class="s4" dir="ltr">54</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Right Slope Large</td><td class="s6" dir="ltr">53</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">T Cross</td><td class="s4" dir="ltr">26</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr"> + Cross</td><td class="s6" dir="ltr">27</td></tr>
-            <tr style="height: 20px"><td class="s9" dir="ltr">Y Cross</td><td class="s10" dir="ltr">28</td></tr>
-            <tr style="height: 20px"><td class="s2" dir="ltr" colspan="2">SNAKES</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Small Left</td><td class="s4" dir="ltr">65</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Small Right</td><td class="s6" dir="ltr">64</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Medium Left</td><td class="s4" dir="ltr">67</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Medium Right</td><td class="s6" dir="ltr">66</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Big Left</td><td class="s4" dir="ltr">69</td></tr>
-            <tr style="height: 20px"><td class="s7" dir="ltr">Big Right</td><td class="s8" dir="ltr">68</td></tr>
-            <tr style="height: 20px"><td class="s2" dir="ltr" colspan="2">SLOPES</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Climb 3-1</td><td class="s6" dir="ltr">17</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Climb 6-2</td><td class="s4" dir="ltr">18</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Climb 9-3</td><td class="s6" dir="ltr">22</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Slope Start</td><td class="s4" dir="ltr">23</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Slope</td><td class="s6" dir="ltr">24</td></tr>
-            <tr style="height: 20px"><td class="s3" dir="ltr">Slope End</td><td class="s4" dir="ltr">25</td></tr>
-            <tr style="height: 20px"><td class="s5" dir="ltr">Flat To Slope Left</td><td class="s6" dir="ltr">76</td></tr>
-            <tr style="height: 20px"><td class="s9" dir="ltr">Flat To Slope Right</td><td class="s10" dir="ltr">75</td></tr>
-            <tr style="height: 20px"><td class="s2" dir="ltr" colspan="2">METAL PLATFORMS</td></tr>
-            <tr
+            <tr class="main-header">
+                <td>Piece Name</td>
+                <td>ID</td>
+            </tr>
+
+            <tr><td colspan="2" class="category-header">ESSENTIAL</td></tr>
+            <tr><td>Straight</td><td class="id-cell">3</td></tr>
+            <tr><td>Straight Short</td><td class="id-cell">42</td></tr>
+            <tr><td>Start</td><td class="id-cell">1</td></tr>
+            <tr><td>Finish</td><td class="id-cell">2</td></tr>
+
+            <tr><td colspan="2" class="category-header">TURNS</td></tr>
+            <tr><td>Flat Small</td><td class="id-cell">4</td></tr>
+            <tr><td>Flat Medium</td><td class="id-cell">6</td></tr>
+            <tr><td>Flat Large</td><td class="id-cell">8</td></tr>
+            <tr><td>Left Slope Medium</td><td class="id-cell">59</td></tr>
+            <tr><td>Right Slope Medium</td><td class="id-cell">58</td></tr>
+            <tr><td>Left Slope Large</td><td class="id-cell">54</td></tr>
+            <tr><td>Right Slope Large</td><td class="id-cell">53</td></tr>
+            <tr><td>T Cross</td><td class="id-cell">26</td></tr>
+            <tr><td>+ Cross</td><td class="id-cell">27</td></tr>
+            <tr><td>Y Cross</td><td class="id-cell">28</td></tr>
+
+            <tr><td colspan="2" class="category-header">SNAKES</td></tr>
+            <tr><td>Small Left</td><td class="id-cell">65</td></tr>
+            <tr><td>Small Right</td><td class="id-cell">64</td></tr>
+            <tr><td>Medium Left</td><td class="id-cell">67</td></tr>
+            <tr><td>Medium Right</td><td class="id-cell">66</td></tr>
+            <tr><td>Big Left</td><td class="id-cell">69</td></tr>
+            <tr><td>Big Right</td><td class="id-cell">68</td></tr>
+
+            <tr><td colspan="2" class="category-header">SLOPES</td></tr>
+            <tr><td>Climb 3-1</td><td class="id-cell">17</td></tr>
+            <tr><td>Climb 6-2</td><td class="id-cell">18</td></tr>
+            <tr><td>Climb 9-3</td><td class="id-cell">22</td></tr>
+            <tr><td>Slope Start</td><td class="id-cell">23</td></tr>
+            <tr><td>Slope</td><td class="id-cell">24</td></tr>
+            <tr><td>Slope End</td><td class="id-cell">25</td></tr>
+            <tr><td>Flat To Slope Left</td><td class="id-cell">76</td></tr>
+            <tr><td>Flat To Slope Right</td><td class="id-cell">75</td></tr>
+
+            <tr><td colspan="2" class="category-header">METAL PLATFORMS</td></tr>
+            <tr><td>Horizontal</td><td class="id-cell">13</td></tr>
+            <tr><td>Horizontal Short</td><td class="id-cell">70</td></tr>
+            <tr><td>Vertical</td><td class="id-cell">12</td></tr>
+            <tr><td>Vertical Short 1</td><td class="id-cell">71</td></tr>
+            <tr><td>Vertical Short 2</td><td class="id-cell">72</td></tr>
+            <tr><td>Slope Start</td><td class="id-cell">15</td></tr>
+            <tr><td>Slope</td><td class="id-cell">14</td></tr>
+            <tr><td>Slope End</td><td class="id-cell">16</td></tr>
+            <tr><td>Curve 1</td><td class="id-cell">9</td></tr>
+            <tr><td>Curve 2</td><td class="id-cell">10</td></tr>
+            <tr><td>Curve 3</td><td class="id-cell">11</td></tr>
+
+            <tr><td colspan="2" class="category-header">ROAD PLATFORMS</td></tr>
+            <tr><td>Side</td><td class="id-cell">32</td></tr>
+            <tr><td>Side Short</td><td class="id-cell">74</td></tr>
+            <tr><td>Middle</td><td class="id-cell">29</td></tr>
+            <tr><td>Middle Short</td><td class="id-cell">73</td></tr>
+            <tr><td>Corner</td><td class="id-cell">30</td></tr>
+            <tr><td>Corner2</td><td class="id-cell">31</td></tr>
+            <tr><td>Slope Start Border Left</td><td class="id-cell">33</td></tr>
+            <tr><td>Slope Start No Border</td><td class="id-cell">36</td></tr>
+            <tr><td>Slope Start Border Right</td><td class="id-cell">39</td></tr>
+            <tr><td>Slope Border Left</td><td class="id-cell">34</td></tr>
+            <tr><td>Slope No Border</td><td class="id-cell">37</td></tr>
+            <tr><td>Slope Border Right</td><td class="id-cell">40</td></tr>
+            <tr><td>Slope End Border Left</td><td class="id-cell">35</td></tr>
+            <tr><td>Slope End No Border</td><td class="id-cell">38</td></tr>
+            <tr><td>Slope End Border Right</td><td class="id-cell">41</td></tr>
+
+            <tr><td colspan="2" class="category-header">TILTED</td></tr>
+            <tr><td>Tilted</td><td class="id-cell">49</td></tr>
+            <tr><td>Transition Left</td><td class="id-cell">61</td></tr>
+            <tr><td>Transition Right</td><td class="id-cell">60</td></tr>
+            <tr><td>Transition Turn Left</td><td class="id-cell">63</td></tr>
+            <tr><td>Transition Turn Right</td><td class="id-cell">62</td></tr>
+            <tr><td>Turn Medium</td><td class="id-cell">57</td></tr>
+            <tr><td>Turn Large</td><td class="id-cell">52</td></tr>
+            <tr><td>Left Slope Down</td><td class="id-cell">80</td></tr>
+            <tr><td>Right Slope Down</td><td class="id-cell">79</td></tr>
+            <tr><td>Left Slope Up</td><td class="id-cell">78</td></tr>
+            <tr><td>Right Slope Up</td><td class="id-cell">7777</td></tr>
+
+            <tr><td colspan="2" class="category-header">LOOPS</td></tr>
+            <tr><td>Loop Left</td><td class="id-cell">44</td></tr>
+            <tr><td>Loop Right</td><td class="id-cell">19</td></tr>
+            <tr><td>Loop Wide Left</td><td class="id-cell">46</td></tr>
+            <tr><td>Loop Wide Right</td><td class="id-cell">45</td></tr>
+
+            <tr><td colspan="2" class="category-header">TUBES</td></tr>
+            <tr><td>Horizontal</td><td class="id-cell">91</td></tr>
+            <tr><td>Horizontal Short</td><td class="id-cell">92</td></tr>
+            <tr><td>Vertical</td><td class="id-cell">93</td></tr>
+            <tr><td>Vertical Short</td><td class="id-cell">94</td></tr>
+            <tr><td>Horizontal (turn)</td><td class="id-cell">95</td></tr>
+            <tr><td>Vertical 1 (turn)</td><td class="id-cell">96</td></tr>
+            <tr><td>Vertical 2 (turn)</td><td class="id-cell">97</td></tr>
+
+            <tr><td colspan="2" class="category-header">NATURE</td></tr>
+            <tr><td>Ground Block</td><td class="id-cell">98</td></tr>
+            <tr><td>Trees</td><td class="id-cell">101</td></tr>
+            <tr><td>Tree</td><td class="id-cell">103</td></tr>
+
+            <tr><td colspan="2" class="category-header">PROPS</td></tr>
+            <tr><td>Horizontal</td><td class="id-cell">81</td></tr>
+            <tr><td>Horizontal Short</td><td class="id-cell">82</td></tr>
+            <tr><td>Vertical</td><td class="id-cell">83</td></tr>
+            <tr><td>Vertical Short</td><td class="id-cell">84</td></tr>
+            <tr><td>Transition</td><td class="id-cell">90</td></tr>
+            <tr><td>Horizontal Curve</td><td class="id-cell">85</td></tr>
+            <tr><td>Vertical Curve 1</td><td class="id-cell">86</td></tr>
+            <tr><td>Vertical Curve 2</td><td class="id-cell">87</td></tr>
+            <tr><td>Cross Horizontal</td><td class="id-cell">88</td></tr>
+            <tr><td>Cross Vertical</td><td class="id-cell">89</td></tr>
+            <tr><td>Grass Ramp</td><td class="id-cell">43</td></tr>
+            <tr><td>Arrows Left</td><td class="id-cell">20</td></tr>
+            <tr><td>Arrows Right</td><td class="id-cell">21</td></tr>
+            <tr><td>Arrows Down</td><td class="id-cell">48</td></tr>
+            <tr><td>Arrows Up</td><td class="id-cell">47</td></tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
