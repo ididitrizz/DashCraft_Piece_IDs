@@ -9,13 +9,17 @@
             --primary-bg: #76a5af;
             --accent-red: #cc0000;
             --category-yellow: #ffff00;
-            --row-even: #f9f9f9;
-            --row-odd: #ffffff;
-            --border-color: #dddddd;
+            --row-even: rgba(255, 255, 255, 0.85);
+            --row-odd: rgba(240, 240, 240, 0.85);
+            --border-color: rgba(0, 0, 0, 0.1);
         }
 
         body {
-            background-color: #f4f7f6;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
             font-family: 'Segoe UI', Arial, sans-serif;
             padding: 40px 20px;
             margin: 0;
@@ -24,12 +28,16 @@
         }
 
         .table-container {
-            background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
             overflow: hidden;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
         }
 
         table {
@@ -45,7 +53,7 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 12px 15px;
+            padding: 15px;
             border: none;
         }
 
@@ -57,35 +65,35 @@
 
         /* Section/Category Headers */
         .category-header {
-            background-color: var(--category-yellow);
-            color: #333;
-            font-weight: 800;
+            background-color: rgba(255, 255, 0, 0.85);
+            color: #111;
+            font-weight: 900;
             text-align: center;
-            padding: 8px;
-            border-top: 2px solid #00000010;
-            border-bottom: 1px solid #00000010;
+            padding: 10px;
             letter-spacing: 2px;
+            border-top: 2px solid rgba(0,0,0,0.2);
         }
 
-        /* Standard Rows */
+        /* Standard Rows with transparency */
         tr:nth-child(even) { background-color: var(--row-even); }
         tr:nth-child(odd) { background-color: var(--row-odd); }
         
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: rgba(255, 255, 255, 1);
+            transition: 0.2s;
         }
 
         td {
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-bottom: 1px solid var(--border-color);
-            color: #444;
+            color: #222;
         }
 
         .id-cell {
             text-align: right;
             font-family: 'Courier New', monospace;
             font-weight: bold;
-            color: #2c3e50;
+            color: #000;
             border-left: 1px solid var(--border-color);
         }
 
